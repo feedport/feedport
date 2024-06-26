@@ -1,13 +1,11 @@
-FROM golang:alpine3.18 AS build
-RUN apk add build-base git
-WORKDIR /src
-COPY . .
-RUN make build_linux
+FROM golang:latest as build
 
-FROM alpine:latest
-RUN apk add --no-cache ca-certificates && \
-    update-ca-certificates
-COPY --from=build /src/_output/linux/yarr /usr/local/bin/yarr
-EXPOSE 7070
-ENTRYPOINT ["/usr/local/bin/yarr"]
-CMD ["-addr", "0.0.0.0:7070", "-db", "/data/yarr.db"]
+WORKDIR /go/src/yarr
+COPY . .
+
+RUN go mod download
+RUN CGO_ENABLED=1 go build -tags "sqlite_foreign_keys linux" -ldflags '-linkmode external -extldflags -static -w' -o /go/bin/yarr ./cmd/yarr
+
+FROM gcr.io/distroless/static-debian12
+COPY --from=build /go/bin/yarr /
+CMD ["/yarr"]
