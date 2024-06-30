@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/feedbin/feedbin/src/worker"
 	"github.com/nkanaev/yarr/src/assets"
 	"github.com/nkanaev/yarr/src/content/htmlutil"
 	"github.com/nkanaev/yarr/src/content/readability"
@@ -21,7 +22,6 @@ import (
 	"github.com/nkanaev/yarr/src/server/opml"
 	"github.com/nkanaev/yarr/src/server/router"
 	"github.com/nkanaev/yarr/src/storage"
-	"github.com/nkanaev/yarr/src/worker"
 )
 
 func (s *Server) handler() http.Handler {
@@ -35,7 +35,7 @@ func (s *Server) handler() http.Handler {
 			Username: s.Username,
 			Password: s.Password,
 			Public:   []string{"/static", "/fever"},
-            DB:       s.db,
+			DB:       s.db,
 		}
 		r.Use(a.Handler)
 	}

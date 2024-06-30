@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/url"
 	"sort"
 	"strings"
 	"time"
@@ -45,16 +46,17 @@ func (s *ItemStatus) UnmarshalJSON(b []byte) error {
 }
 
 type Item struct {
-	Id       int64      `json:"id"`
-	GUID     string     `json:"guid"`
-	FeedId   int64      `json:"feed_id"`
-	Title    string     `json:"title"`
-	Link     string     `json:"link"`
-	Content  string     `json:"content,omitempty"`
-	Date     time.Time  `json:"date"`
-	Status   ItemStatus `json:"status"`
-	ImageURL *string    `json:"image"`
-	AudioURL *string    `json:"podcast_url"`
+	Id         int64      `json:"id"`
+	GUID       string     `json:"guid"`
+	FeedId     int64      `json:"feed_id"`
+	Title      string     `json:"title"`
+	Link       string     `json:"link"`
+	Content    string     `json:"content,omitempty"`
+	Date       time.Time  `json:"date"`
+	Status     ItemStatus `json:"status"`
+	ImageURL   *string    `json:"image"`
+	AudioURL   *string    `json:"podcast_url"`
+	YoutubeURL *string    `json:"youtube_url"`
 }
 
 type ItemFilter struct {
@@ -79,21 +81,20 @@ type MarkFilter struct {
 type ItemList []Item
 
 func (list ItemList) Len() int {
-    return len(list)
+	return len(list)
 }
 
 func (list ItemList) SortKey(i int) string {
-    return list[i].Date.Format(time.RFC3339) + "::" + list[i].GUID
+	return list[i].Date.Format(time.RFC3339) + "::" + list[i].GUID
 }
 
 func (list ItemList) Less(i, j int) bool {
-    return list.SortKey(i) < list.SortKey(j)
+	return list.SortKey(i) < list.SortKey(j)
 }
 
 func (list ItemList) Swap(i, j int) {
-    list[i], list[j] = list[j], list[i]
+	list[i], list[j] = list[j], list[i]
 }
-
 
 func (s *Storage) CreateItems(items []Item) bool {
 	tx, err := s.db.Begin()
@@ -104,8 +105,8 @@ func (s *Storage) CreateItems(items []Item) bool {
 
 	now := time.Now().UTC()
 
-    itemsSorted := ItemList(items)
-    sort.Sort(itemsSorted)
+	itemsSorted := ItemList(items)
+	sort.Sort(itemsSorted)
 
 	for _, item := range itemsSorted {
 		_, err = tx.Exec(`
@@ -278,6 +279,16 @@ func (s *Storage) GetItem(id int64) *Item {
 		&i.Id, &i.GUID, &i.FeedId, &i.Title, &i.Link, &i.Content,
 		&i.Date, &i.Status, &i.ImageURL, &i.AudioURL,
 	)
+	if strings.Contains(i.Link, "youtube.com") {
+		u, _ := url.Parse(i.Link)
+		q := u.Query()
+		if v := q.Get("v"); v != "" {
+			m := ""
+			i.ImageURL = &m
+			y := fmt.Sprintf("https://www.youtube-nocookie.com/embed/%s", v)
+			i.YoutubeURL = &y
+		}
+	}
 	if err != nil {
 		log.Print(err)
 		return nil

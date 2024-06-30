@@ -1,9 +1,10 @@
 package worker
 
 import (
-	"net"
 	"net/http"
 	"time"
+
+	"github.com/imroc/req/v3"
 )
 
 type Client struct {
@@ -33,20 +34,14 @@ func (c *Client) getConditional(url, lastModified, etag string) (*http.Response,
 var client *Client
 
 func init() {
-	transport := &http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		DialContext: (&net.Dialer{
-			Timeout: 10 * time.Second,
-		}).DialContext,
-		DisableKeepAlives:   true,
-		TLSHandshakeTimeout: time.Second * 10,
-	}
-	httpClient := &http.Client{
-		Timeout:   time.Second * 30,
-		Transport: transport,
-	}
+	r := req.C().
+		SetProxy(http.ProxyFromEnvironment).
+		SetTimeout(time.Second * 30).
+		SetTLSHandshakeTimeout(time.Second * 10).
+		DisableKeepAlives()
+	r.ImpersonateChrome()
 	client = &Client{
-		httpClient: httpClient,
-		userAgent:  "Yarr/1.0",
+		httpClient: r.GetClient(),
+		userAgent:  "Feedport/1.0",
 	}
 }

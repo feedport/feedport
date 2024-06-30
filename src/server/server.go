@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/feedbin/feedbin/src/worker"
 	"github.com/nkanaev/yarr/src/storage"
-	"github.com/nkanaev/yarr/src/worker"
 )
 
 type Server struct {
