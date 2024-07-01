@@ -1,6 +1,6 @@
 FROM golang:latest as build
 
-WORKDIR /go/src/yarr
+WORKDIR /go/src/feedport
 COPY . .
 
 RUN go mod download
@@ -8,4 +8,4 @@ RUN CGO_ENABLED=1 go build -tags "sqlite_foreign_keys linux" -ldflags '-linkmode
 
 FROM gcr.io/distroless/static-debian12
 COPY --from=build /go/bin/feedport /
-CMD ["/yarr"]
+CMD ["/feedport"]

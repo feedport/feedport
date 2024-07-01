@@ -5,11 +5,24 @@
 [![Matrix Build](https://github.com/feedport/feedport/actions/workflows/build.yml/badge.svg)](https://github.com/feedport/feedport/actions/workflows/build.yml)
 [![dockerhub](etc/dockerhub.png)](https://hub.docker.com/r/feedport/feedport/)
 
+Fork of **yarr** (yet another rss reader), web-based feed/atom aggregator optimized for self-hosting with some other features included.
 
+### features included
+- Dropped desktop support
+- Embedded youtube player
+- Some UI/UX improvements, moved url mask, included expand feeds, system auto theme etc...
 
 ## usage
 
+You can easily use containered version for linux at `feedport/feedport:latest` (armv7, arm64, amd64), or compile and run yourself if you have [golang installed](https://go.dev/doc/install):
+
+```bash
+git clone https://github.com/feedport/feedport
+cd feedport
+go run cmd/main.go
+```
+
 ## credits
 
-[Nazar Kanaev](https://github.com/nkanaev) original app creator among other  [contributors](https://github.com/nkanaev/yarr/graphs/contributors).
+[Nazar Kanaev](https://github.com/nkanaev) original creator among other  [contributors](https://github.com/nkanaev/yarr/graphs/contributors).<br>
 [Feather](http://feathericons.com/) for icons.

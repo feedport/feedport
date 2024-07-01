@@ -83,15 +83,20 @@ func (s *Server) handleStatic(c *router.Context) {
 func (s *Server) handleManifest(c *router.Context) {
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"$schema":     "https://json.schemastore.org/web-manifest-combined.json",
-		"name":        "feedport!",
-		"short_name":  "feedport",
-		"description": "yet another rss reader",
+		"name":        "Feedport",
+		"short_name":  "Feedport",
+		"description": "yet another rss reader fork",
 		"display":     "standalone",
 		"start_url":   s.BasePath,
 		"icons": []map[string]interface{}{
 			{
-				"src":   s.BasePath + "/static/graphicarts/favicon.png",
-				"sizes": "64x64",
+				"src":   s.BasePath + "/static/graphicarts/icon-192-maskable.png",
+				"sizes": "192x192",
+				"type":  "image/png",
+			},
+			{
+				"src":   s.BasePath + "/static/graphicarts/icon-512-maskable.png",
+				"sizes": "512x512",
 				"type":  "image/png",
 			},
 		},

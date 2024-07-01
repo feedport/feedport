@@ -211,6 +211,13 @@ var vm = new Vue({
   },
   data: function () {
     var s = app.settings;
+    if (s.theme_name === "auto") {
+      document.body.classList.value = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches
+        ? "theme-night"
+        : "theme-light";
+    }
     return {
       filterSelected: s.filter,
       folders: [],
@@ -231,6 +238,10 @@ var vm = new Vue({
       filteredFeedStats: {},
       filteredFolderStats: {},
       filteredTotalStats: null,
+
+      delay: 700,
+      clicks: 0,
+      timer: null,
 
       settings: "",
       loading: {
@@ -302,7 +313,15 @@ var vm = new Vue({
     theme: {
       deep: true,
       handler: function (theme) {
-        document.body.classList.value = "theme-" + theme.name;
+        if (theme.name === "auto") {
+          document.body.classList.value = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches
+            ? "theme-night"
+            : "theme-light";
+        } else {
+          document.body.classList.value = "theme-" + theme.name;
+        }
         api.settings.update({
           theme_name: theme.name,
           theme_font: theme.font,
@@ -507,6 +526,29 @@ var vm = new Vue({
     toggleFolderExpanded: function (folder) {
       folder.is_expanded = !folder.is_expanded;
       api.folders.update(folder.id, { is_expanded: folder.is_expanded });
+    },
+    doubleClickFoldersExpanded: function () {
+      this.clicks++;
+      if (this.clicks === 1) {
+        var self = this;
+        this.timer = setTimeout(function () {
+          self.clicks = 0;
+        }, this.delay);
+      } else {
+        clearTimeout(this.timer);
+        this.clicks = 0;
+        vm.toggleFoldersExpanded();
+      }
+    },
+    toggleFoldersExpanded: function () {
+      if (this.folders.length > 0) {
+        const firstFolderState = this.folders[0].is_expanded;
+        for (var i = 0; i < this.folders.length; i++) {
+          var folder = this.folders[i];
+          folder.is_expanded = !firstFolderState;
+          api.folders.update(folder.id, { is_expanded: folder.is_expanded });
+        }
+      }
     },
     formatDate: function (datestr) {
       var options = {
