@@ -1,39 +1,15 @@
-# yarr
+# Feedport
+![go version](https://img.shields.io/badge/go%20-1.22.4-blue)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/702dd365f16246acb1f591c70fb57f8b)](https://app.codacy.com/gh/feedport/feedport/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Matrix Build](https://github.com/feedport/feedport/actions/workflows/build.yml/badge.svg)](https://github.com/feedport/feedport/actions/workflows/build.yml)
+[![dockerhub](etc/dockerhub.png)](https://hub.docker.com/r/feedport/feedport/)
 
-**yarr** (yet another rss reader) is a web-based feed aggregator which can be used both
-as a desktop application and a personal self-hosted server.
 
-The app is a single binary with an embedded database (SQLite).
-
-![screenshot](etc/promo.png)
 
 ## usage
 
-The latest prebuilt binaries for Linux/MacOS/Windows AMD64 are available
-[here](https://github.com/nkanaev/yarr/releases/latest). Installation instructions:
-
-* MacOS
-
-  Download `yarr-*-macos64.zip`, unzip it, place `yarr.app` in `/Applications` folder, [open the app][macos-open], click the anchor menu bar icon, select "Open".
-
-* Windows
-
-  Download `yarr-*-windows64.zip`, unzip it, open `yarr.exe`, click the anchor system tray icon, select "Open".
-
-* Linux
-
-  Download `yarr-*-linux64.zip`, unzip it, place `yarr` in `$HOME/.local/bin`
-and run [the script](etc/install-linux.sh).
-
-[macos-open]: https://support.apple.com/en-gb/guide/mac-help/mh40616/mac
-
-For self-hosting, see `yarr -h` for auth, tls & server configuration flags.
-
-See more:
-
-* [Building from source code](doc/build.md)
-* [Fever API support](doc/fever.md)
-
 ## credits
 
+[Nazar Kanaev](https://github.com/nkanaev) original app creator among other  [contributors](https://github.com/nkanaev/yarr/graphs/contributors).
 [Feather](http://feathericons.com/) for icons.
