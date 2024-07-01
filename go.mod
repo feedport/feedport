@@ -1,8 +1,6 @@
-module github.com/nkanaev/yarr
+module github.com/feedport/feedport
 
 go 1.22.4
-
-replace github.com/feedbin/feedbin/src/worker => ./src/worker
 
 require (
 	github.com/imroc/req/v3 v3.43.7
@@ -14,7 +12,6 @@ require (
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/cloudflare/circl v1.3.7 // indirect
-	github.com/feedbin/feedbin/src/worker v0.0.0-00010101000000-000000000000 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/google/pprof v0.0.0-20240227163752-401108e1b7e7 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect

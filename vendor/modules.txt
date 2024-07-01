@@ -44,9 +44,6 @@ github.com/cloudflare/circl/sign/schemes
 github.com/cloudflare/circl/simd/keccakf1600
 github.com/cloudflare/circl/xof
 github.com/cloudflare/circl/xof/k12
-# github.com/feedbin/feedbin/src/worker v0.0.0-00010101000000-000000000000 => ./src/worker
-## explicit; go 1.22.4
-github.com/feedbin/feedbin/src/worker
 # github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572
 ## explicit; go 1.13
 github.com/go-task/slim-sprig
@@ -219,4 +216,3 @@ golang.org/x/tools/internal/gocommand
 golang.org/x/tools/internal/gopathwalk
 golang.org/x/tools/internal/imports
 golang.org/x/tools/internal/stdlib
-# github.com/feedbin/feedbin/src/worker => ./src/worker

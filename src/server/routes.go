@@ -11,17 +11,17 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/feedbin/feedbin/src/worker"
-	"github.com/nkanaev/yarr/src/assets"
-	"github.com/nkanaev/yarr/src/content/htmlutil"
-	"github.com/nkanaev/yarr/src/content/readability"
-	"github.com/nkanaev/yarr/src/content/sanitizer"
-	"github.com/nkanaev/yarr/src/content/silo"
-	"github.com/nkanaev/yarr/src/server/auth"
-	"github.com/nkanaev/yarr/src/server/gzip"
-	"github.com/nkanaev/yarr/src/server/opml"
-	"github.com/nkanaev/yarr/src/server/router"
-	"github.com/nkanaev/yarr/src/storage"
+	"github.com/feedport/feedport/src/assets"
+	"github.com/feedport/feedport/src/content/htmlutil"
+	"github.com/feedport/feedport/src/content/readability"
+	"github.com/feedport/feedport/src/content/sanitizer"
+	"github.com/feedport/feedport/src/content/silo"
+	"github.com/feedport/feedport/src/server/auth"
+	"github.com/feedport/feedport/src/server/gzip"
+	"github.com/feedport/feedport/src/server/opml"
+	"github.com/feedport/feedport/src/server/router"
+	"github.com/feedport/feedport/src/storage"
+	"github.com/feedport/feedport/src/worker"
 )
 
 func (s *Server) handler() http.Handler {
@@ -83,8 +83,8 @@ func (s *Server) handleStatic(c *router.Context) {
 func (s *Server) handleManifest(c *router.Context) {
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"$schema":     "https://json.schemastore.org/web-manifest-combined.json",
-		"name":        "yarr!",
-		"short_name":  "yarr",
+		"name":        "feedport!",
+		"short_name":  "feedport",
 		"description": "yet another rss reader",
 		"display":     "standalone",
 		"start_url":   s.BasePath,

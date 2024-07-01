@@ -4,8 +4,8 @@
 package platform
 
 import (
-	"github.com/nkanaev/yarr/src/server"
-	"github.com/nkanaev/yarr/src/systray"
+	"github.com/feedport/feedport/src/server"
+	"github.com/feedport/feedport/src/systray"
 )
 
 func Start(s *server.Server) {

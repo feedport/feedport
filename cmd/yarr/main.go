@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/nkanaev/yarr/src/platform"
-	"github.com/nkanaev/yarr/src/server"
-	"github.com/nkanaev/yarr/src/storage"
+	"github.com/feedport/feedport/src/platform"
+	"github.com/feedport/feedport/src/server"
+	"github.com/feedport/feedport/src/storage"
 )
 
 var Version string = "0.0"
@@ -60,14 +60,14 @@ func main() {
 		fmt.Fprintln(out, " ", strings.Join(OptList, ", "))
 	}
 
-	flag.StringVar(&addr, "addr", opt("YARR_ADDR", "0.0.0.0:7070"), "address to run server on")
-	flag.StringVar(&basepath, "base", opt("YARR_BASE", ""), "base path of the service url")
-	flag.StringVar(&authfile, "auth-file", opt("YARR_AUTHFILE", ""), "`path` to a file containing username:password. Takes precedence over --auth (or YARR_AUTH)")
-	flag.StringVar(&auth, "auth", opt("YARR_AUTH", ""), "string with username and password in the format `username:password`")
-	flag.StringVar(&certfile, "cert-file", opt("YARR_CERTFILE", ""), "`path` to cert file for https")
-	flag.StringVar(&keyfile, "key-file", opt("YARR_KEYFILE", ""), "`path` to key file for https")
-	flag.StringVar(&db, "db", opt("YARR_DB", ""), "storage file `path`")
-	flag.StringVar(&logfile, "log-file", opt("YARR_LOGFILE", ""), "`path` to log file to use instead of stdout")
+	flag.StringVar(&addr, "addr", opt("FEEDPORT_ADDR", "0.0.0.0:7070"), "address to run server on")
+	flag.StringVar(&basepath, "base", opt("FEEDPORT_BASE", ""), "base path of the service url")
+	flag.StringVar(&authfile, "auth-file", opt("FEEDPORT_AUTHFILE", ""), "`path` to a file containing username:password. Takes precedence over --auth (or YARR_AUTH)")
+	flag.StringVar(&auth, "auth", opt("FEEDPORT_AUTH", ""), "string with username and password in the format `username:password`")
+	flag.StringVar(&certfile, "cert-file", opt("FEEDPORT_CERTFILE", ""), "`path` to cert file for https")
+	flag.StringVar(&keyfile, "key-file", opt("FEEDPORT_KEYFILE", ""), "`path` to key file for https")
+	flag.StringVar(&db, "db", opt("FEEDPORT_DB", ""), "storage file `path`")
+	flag.StringVar(&logfile, "log-file", opt("FEEDPORT_LOGFILE", ""), "`path` to log file to use instead of stdout")
 	flag.BoolVar(&ver, "version", false, "print application version")
 	flag.BoolVar(&open, "open", false, "open the server in browser")
 	flag.Parse()
@@ -95,7 +95,7 @@ func main() {
 	}
 
 	if db == "" {
-		storagePath := filepath.Join(configPath, "yarr")
+		storagePath := filepath.Join(configPath, "feedport")
 		if err := os.MkdirAll(storagePath, 0755); err != nil {
 			log.Fatal("Failed to create app config dir: ", err)
 		}

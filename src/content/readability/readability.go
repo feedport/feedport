@@ -13,7 +13,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/nkanaev/yarr/src/content/htmlutil"
+	"github.com/feedport/feedport/src/content/htmlutil"
 	"golang.org/x/net/html"
 )
 
