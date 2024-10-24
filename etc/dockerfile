@@ -1,11 +1,11 @@
-FROM golang:latest as build
+FROM golang:1.23.2-bookworm AS build
 
 WORKDIR /go/src/feedport
 COPY . .
 
 RUN go mod download
-RUN CGO_ENABLED=1 go build -tags "sqlite_foreign_keys linux" -ldflags '-linkmode external -extldflags -static -w' -o /go/bin/feedport ./cmd
+RUN CGO_ENABLED=1 go build -tags "sqlite_foreign_keys linux" -ldflags '-linkmode external -extldflags -s -w' -o /go/bin/feedport ./cmd
 
-FROM gcr.io/distroless/static-debian12
+FROM gcr.io/distroless/static-debian12:nonroot
 COPY --from=build /go/bin/feedport /
 CMD ["/feedport"]
